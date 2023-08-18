@@ -50,7 +50,7 @@ class Book {
         return new Book(response.rows[0]);
     }
 
-    static async deleteById() {
+    async deleteById() {
         try {
             await db.query("DELETE FROM books WHERE book_id = $1", [this.id]);
             return { success: true, message: 'book deleted successfully.'} 

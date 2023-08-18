@@ -35,7 +35,7 @@ async function update (req, res) {
     try {
         const data = req.body
         const id = parseInt(req.params.id)
-        const bookToUpdate = await book.getOneById(id)
+        const bookToUpdate = await Book.getOneById(id)
         
         if (!bookToUpdate) {
             return res.status(404).send({ message: 'Diary not found' });
