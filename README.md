@@ -1,1 +1,1 @@
-# book-wiz-backend
+# book-whiz-backend
