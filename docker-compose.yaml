@@ -1,6 +1,16 @@
 version: '3'
 services:
 
+  database:
+    image: postgres
+    container_name: library_db
+    environment:
+      POSTGRES_PASSWORD: jkljkl
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./database/setup.sql:/docker-entrypoint-initdb.d/entries.sql
+
   api:
     image: node:18
     container_name: library_api
@@ -14,15 +24,5 @@ services:
     depends_on:
       - database
     environment:
-      DB_URL: postgres://postgres:yourpassword@database:5432/booksdb
+      DB_URL: postgres://postgres:jkljkl@database:5432/postgres
     command: bash -c "npm install && npm run dev"
-
-  database:
-    image: postgres
-    container_name: library_db
-    environment:
-      POSTGRES_PASSWORD: yourpassword
-    ports:
-      - "5432:5432"
-    volumes:
-      - ./database/setup.sql:/docker-entrypoint-initdb.d/entries.sql
