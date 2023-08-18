@@ -1,0 +1,28 @@
+version: '3'
+services:
+
+  api:
+    image: node:18
+    container_name: library_api
+    ports:
+      - 3000:3000
+    volumes:
+      - type: bind
+        source: ../
+        target: /code
+    working_dir: /code/book-whiz-backend
+    depends_on:
+      - database
+    environment:
+      DB_URL: postgres://postgres:yourpassword@database:5432/booksdb
+    command: bash -c "npm install && npm run dev"
+
+  database:
+    image: postgres
+    container_name: library_db
+    environment:
+      POSTGRES_PASSWORD: yourpassword
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./database/setup.sql:/docker-entrypoint-initdb.d/entries.sql
