@@ -30,3 +30,5 @@ services:
     environment:
       DB_URL: postgres://postgres:jkljkl@database:5432/postgres
     command: bash -c "npm install && npm run setup-db && npm run dev"
+networks:
+  backend_network
