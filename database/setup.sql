@@ -32,7 +32,6 @@ CREATE TABLE books (
 CREATE TABLE borrowed_books (
     book_id INT NOT NULL PRIMARY KEY,
     user_id INT NOT NULL,
-    checked_out BOOLEAN DEFAULT FALSE,
     due_date TIMESTAMP,
     overdue BOOLEAN DEFAULT FALSE,
     FOREIGN KEY (book_id) REFERENCES books("book_id"),

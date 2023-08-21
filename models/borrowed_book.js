@@ -2,10 +2,9 @@ const db = require('../database/connect')
 
 class Borrowed_Book {
 
-    constructor ({ book_id, user_id, checked_out, due_date, overdue}) {
+    constructor ({ book_id, user_id, due_date, overdue}) {
         this.book_id = book_id;
         this.user_id = user_id;
-        this.checked_out = checked_out;
         this.due_date = due_date;
         this.overdue = overdue;
     }
@@ -30,9 +29,8 @@ class Borrowed_Book {
     static async create(data) {
         const { book_id, user_id, due_date} = data;
     
-        const checked_out = true;
     
-        const response = await db.query('INSERT INTO borrowed_books (book_id, user_id, checked_out, due_date) VALUES ($1, $2, $3, $4) RETURNING *;', [book_id, user_id, checked_out, due_date]);
+        const response = await db.query('INSERT INTO borrowed_books (book_id, user_id, due_date) VALUES ($1, $2, $3) RETURNING *;', [book_id, user_id, due_date]);
     
         return new Borrowed_Book(response.rows[0]);
     }
