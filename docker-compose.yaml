@@ -1,6 +1,5 @@
 version: '3'
 services:
-
   database:
     image: postgres
     container_name: library_db
@@ -10,7 +9,6 @@ services:
       - "5432:5432"
     volumes:
       - ./database/setup.sql:/docker-entrypoint-initdb.d/entries.sql
-
   api:
     image: node:18
     container_name: library_api
@@ -20,7 +18,7 @@ services:
       - type: bind
         source: ../
         target: /code
-    working_dir: /code/book-whiz-backend
+    working_dir: /code/book-wiz-backend
     depends_on:
       - database
     environment:
