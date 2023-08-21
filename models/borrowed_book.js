@@ -3,8 +3,8 @@ const db = require('../database/connect')
 class Borrowed_Book {
 
     constructor ({ book_id, user_id, checked_out, due_date, overdue}) {
-        this.id = book_id;
-        this.user = user_id;
+        this.book_id = book_id;
+        this.user_id = user_id;
         this.checked_out = checked_out;
         this.due_date = due_date;
         this.overdue = overdue;
