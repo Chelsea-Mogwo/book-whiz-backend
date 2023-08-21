@@ -15,7 +15,7 @@ class Borrowed_Book {
         if (response.rows.length === 0) {
             throw new Error("No books are borrowed.")
         }
-        return response.rows.map(g => new Book(g))
+        return response.rows.map(g => new Borrowed_Book(g))
     }
 
 
@@ -28,7 +28,7 @@ class Borrowed_Book {
     }
 
     static async create(data) {
-        const { id: book_id, user_id: user_id, checked_out: checked_out, due_date: due_date, overdue: overdue } = data;
+        const { book_id: book_id, user_id: user_id, checked_out: checked_out, due_date: due_date, overdue: overdue } = data;
     
         const response = await db.query('INSERT INTO borrowed_books (book_id, user_id, checked_out, due_date, overdue) VALUES ($1, $2, $3, $4, $5) RETURNING *;', [book_id, user_id, checked_out, due_date, overdue]);
     
