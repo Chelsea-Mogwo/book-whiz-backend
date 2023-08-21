@@ -60,6 +60,16 @@ async function destroy (req, res) {
   }
 }
 
+async function showGenre (req, res) {
+    try {
+        const keyword = req.params.keyword.toLowerCase()
+        const entry = await Book.getByGenre(keyword);
+        res.status(200).json(entry);
+    } catch (error) {
+        res.status(404).send({ error: error.message });
+    }
+}
+
 async function search (req, res) {
     try {
         const keyword = req.params.keyword.toLowerCase()
@@ -70,6 +80,8 @@ async function search (req, res) {
     }
 }
 
+
+
 module.exports = {
-    index, show, create, update, destroy, search
+    index, show, create, update, destroy, showGenre, search
 }

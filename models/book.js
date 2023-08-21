@@ -11,6 +11,7 @@ class Book {
         this.description = book_description;
     }
 
+
     static async getAll() {
         const response = await db.query("SELECT * FROM books;")
         if (response.rows.length === 0) {
@@ -28,6 +29,7 @@ class Book {
         return new Book(response.rows[0]);
     }
 
+
     static async create(data) {
         const { name: book_name, author: book_author, year: book_year, genre: book_genre, description: book_description} = data;
     
@@ -35,6 +37,7 @@ class Book {
     
         return new Book(response.rows[0]);
     }
+
 
     async update(data) {
         const { name: book_name, author: book_author, year: book_year, genre: book_genre, description: book_description} = data;
@@ -47,6 +50,7 @@ class Book {
         return new Book(response.rows[0]);
     }
 
+
     async deleteById() {
         try {
             await db.query("DELETE FROM books WHERE book_id = $1", [this.id]);
@@ -55,6 +59,21 @@ class Book {
             throw new Error('This id does not match an entry.')
         }
     }
+
+
+    static async getByGenre(keyword) {
+
+        const response = await db.query("SELECT * FROM books WHERE book_genre ILIKE $1;", 
+        [`%${keyword}%`]);
+    
+        if (response.rows.length === 0) {
+            throw new Error("No books found with that genre.")
+        }
+    
+        const results = response.rows.map(row => new Book(row));
+        return results;
+    }
+
 
     static async getByTitleOrAuthor(keyword) {
 
@@ -69,6 +88,7 @@ class Book {
         return results;
     }
     
+
 }
 
 
