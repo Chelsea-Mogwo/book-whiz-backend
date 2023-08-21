@@ -1,6 +1,12 @@
 services:
-  - name: web
-    dockerfile: Dockerfile.web
+  database:
+    dockerfile: Dockerfile
+    env: {}
+    routes:
+      - path: /
+        src: docker-compose.yaml
+  api:
+    dockerfile: Dockerfile
     env: {}
     routes:
       - path: /
