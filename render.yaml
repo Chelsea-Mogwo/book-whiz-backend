@@ -1,0 +1,7 @@
+services:
+  - name: web
+    dockerfile: Dockerfile.web
+    env: {}
+    routes:
+      - path: /
+        src: docker-compose.yaml
