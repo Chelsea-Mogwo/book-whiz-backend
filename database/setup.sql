@@ -25,7 +25,7 @@ CREATE TABLE books (
 	genre VARCHAR(500),
 	section VARCHAR(255),
 	checked_out BOOLEAN DEFAULT FALSE,
-	user_id INT NOT NULL,
+	user_id INT,
 	due_date TIMESTAMP,
 	overdue BOOLEAN DEFAULT FALSE,
 	PRIMARY KEY (book_id),
