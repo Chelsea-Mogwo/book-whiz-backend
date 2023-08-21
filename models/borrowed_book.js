@@ -38,8 +38,8 @@ class Borrowed_Book {
     }
 
     async update(data) {
-        const {user_id: user_id, checked_out: checked_out, due_date: due_date, overdue: overdue} = data;
-        const response = await db.query("UPDATE borrowed_books SET user_id = $1, checked_out = $2, due_date = $3, overdue = $4 WHERE book_id = $5 RETURNING *;", [user_id, checked_out, due_date, overdue, this.book_id])
+        const {user_id: user_id, due_date: due_date, overdue: overdue} = data;
+        const response = await db.query("UPDATE borrowed_books SET user_id = $1, due_date = $2, overdue = $3 WHERE book_id = $4 RETURNING *;", [user_id, due_date, overdue, this.book_id])
 
         if (response.rows.length != 1) {
             throw new Error("Unable to update book.")
