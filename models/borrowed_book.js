@@ -28,11 +28,11 @@ class Borrowed_Book {
     }
 
     static async create(data) {
-        const { book_id, user_id, due_date, overdue } = data;
+        const { book_id, user_id, due_date} = data;
     
         const checked_out = true;
     
-        const response = await db.query('INSERT INTO borrowed_books (book_id, user_id, checked_out, due_date, overdue) VALUES ($1, $2, $3, $4, $5) RETURNING *;', [book_id, user_id, checked_out, due_date, overdue]);
+        const response = await db.query('INSERT INTO borrowed_books (book_id, user_id, checked_out, due_date) VALUES ($1, $2, $3, $4) RETURNING *;', [book_id, user_id, checked_out, due_date]);
     
         return new Borrowed_Book(response.rows[0]);
     }
