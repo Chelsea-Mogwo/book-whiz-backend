@@ -2,16 +2,13 @@ const db = require('../database/connect')
 
 class Book {
 
-    constructor ({ book_id, book_name, book_description, genre, section, checked_out, due_date, overdue, user_details}) {
+    constructor ({ book_id, book_name, book_year, book_author, book_genre, book_description}) {
         this.id = book_id;
         this.name = book_name;
+        this.year = book_year;
+        this.author = book_author;
+        this.genre = book_genre;
         this.description = book_description;
-        this.genre = genre;
-        this.section = section;
-        this.checked_out = checked_out;
-        this.due_date = due_date;
-        this.overdue = overdue;
-        this.user_details = user_details;
     }
 
     static async getAll() {
@@ -32,16 +29,16 @@ class Book {
     }
 
     static async create(data) {
-        const { name: book_name, description: book_description, genre: genre} = data;
+        const { name: book_name, author: book_author, year: book_year, genre: book_genre, description: book_description} = data;
     
-        const response = await db.query('INSERT INTO books (book_name, book_description, genre) VALUES ($1, $2, $3) RETURNING *;', [book_name, book_description, genre]);
+        const response = await db.query('INSERT INTO books (book_name, book_author, book_year, book_genre, book_description) VALUES ($1, $2, $3, $4, $5) RETURNING *;', [book_name, book_author, book_year, book_genre, book_description]);
     
         return new Book(response.rows[0]);
     }
 
     async update(data) {
-        const { name: book_name, description: book_description, genre: genre} = data;
-        const response = await db.query("UPDATE books SET book_name = $1, book_description = $2, genre = $3 WHERE book_id = $4 RETURNING *;", [book_name, book_description, genre, this.id])
+        const { name: book_name, author: book_author, year: book_year, genre: book_genre, description: book_description} = data;
+        const response = await db.query("UPDATE books SET book_name = $1, book_author = $2, book_year = $3, book_genre = $4, book_description = $5 WHERE book_id = $6 RETURNING *;", [book_name, book_author, book_year, book_genre, book_description, this.id])
 
         if (response.rows.length != 1) {
             throw new Error("Unable to update book.")
@@ -55,13 +52,25 @@ class Book {
             await db.query("DELETE FROM books WHERE book_id = $1", [this.id]);
             return { success: true, message: 'book deleted successfully.'} 
         } catch (error) {
-            throw new Error('This id does not match an entry')
+            throw new Error('This id does not match an entry.')
         }
     }
 
+    static async getByTitleOrAuthor(keyword) {
+
+        const response = await db.query("SELECT * FROM books WHERE book_name ILIKE $1 OR book_author ILIKE $1;", 
+        [`%${keyword}%`]);
+    
+        if (response.rows.length === 0) {
+            throw new Error("No books found with that title or author.")
+        }
+    
+        const results = response.rows.map(row => new Book(row));
+        return results;
+    }
+    
 }
 
 
-// test work
 
 module.exports = Book;

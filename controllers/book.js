@@ -38,7 +38,7 @@ async function update (req, res) {
         const bookToUpdate = await Book.getOneById(id)
         
         if (!bookToUpdate) {
-            return res.status(404).send({ message: 'Diary not found' });
+            return res.status(404).send({ message: 'Book not found' });
         }
 
         const result = await bookToUpdate.update(data);
@@ -54,13 +54,22 @@ async function destroy (req, res) {
         const id = parseInt(req.params.id);
         const bookToDelete = await Book.getOneById(id)
         await bookToDelete.deleteById(id)
-        res.status(204).send({ message: 'book deleted!' })
+        res.status(204).send({ message: 'Book deleted!' })
     } catch (error) {
       res.status(404).send({ error: error.message });
   }
 }
 
+async function search (req, res) {
+    try {
+        const keyword = req.params.keyword.toLowerCase()
+        const entry = await Book.getByTitleOrAuthor(keyword);
+        res.status(200).json(entry);
+    } catch (error) {
+        res.status(404).send({ error: error.message });
+    }
+}
 
 module.exports = {
-    index, show, create, update, destroy
+    index, show, create, update, destroy, search
 }

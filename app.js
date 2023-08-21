@@ -3,6 +3,8 @@ const cors = require('cors')
 const logger = require('morgan')
 
 const bookRoutes = require('./routers/book')
+const userRoutes = require('./routers/user')
+const borrowedBookRoutes = require('./routers/borrowed_book')
 
 const app = express()
 
@@ -19,6 +21,8 @@ app.get("/", (req, res) => {
 })
 
 app.use('/books', bookRoutes)
+app.use('/users', userRoutes)
+app.use('/borrowed', borrowedBookRoutes)
 
 
 module.exports = app
