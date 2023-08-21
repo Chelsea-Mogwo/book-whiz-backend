@@ -57,16 +57,17 @@ class Book {
     }
 
     static async getByTitleOrAuthor(keyword) {
-        console.log('hi from models getbytitleorauthor')
-        const response = await db.query("SELECT * FROM books WHERE book_name LIKE $1 OR book_author LIKE $1;", 
+        console.log('Hi from models getbytitleorauthor')
+        console.log('Keyword:', keyword)
+        const response = await db.query("SELECT * FROM books WHERE book_name ILIKE $1 OR book_author ILIKE $1;", 
         [`%${keyword}%`]);
     
         if (response.rows.length === 0) {
             throw new Error("No books found with that title or author.")
         }
     
-        const entries = response.rows.map(row => new Book(row));
-        return entries;
+        const results = response.rows.map(row => new Book(row));
+        return results;
     }
     
 }
