@@ -20,7 +20,7 @@ services:
       - type: bind
         source: ../
         target: /code
-    working_dir: /code/book-whiz-backend
+    working_dir: /code/server
     depends_on:
       - database
     environment:

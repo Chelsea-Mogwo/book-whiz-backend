@@ -56,10 +56,23 @@ class Book {
             await db.query("DELETE FROM books WHERE book_id = $1", [this.id]);
             return { success: true, message: 'book deleted successfully.'} 
         } catch (error) {
-            throw new Error('This id does not match an entry')
+            throw new Error('This id does not match an entry.')
         }
     }
 
+    static async getByTitleOrAuthor(keyword) {
+        console.log('hi from models getbytitleorauthor')
+        const response = await db.query("SELECT * FROM books WHERE book_name LIKE $1 OR book_author LIKE $1;", 
+        [`%${keyword}%`]);
+    
+        if (response.rows.length === 0) {
+            throw new Error("No books found with that title or author.")
+        }
+    
+        const entries = response.rows.map(row => new Book(row));
+        return entries;
+    }
+    
 }
 
 

@@ -60,7 +60,16 @@ async function destroy (req, res) {
   }
 }
 
+async function search (req, res) {
+    try {
+        const keyword = req.params.keyword.toLowerCase()
+        const entry = await Book.getByTitleOrAuthor(keyword);
+        res.status(200).json(entry);
+    } catch (error) {
+        res.status(404).send({ error: error.message });
+    }
+}
 
 module.exports = {
-    index, show, create, update, destroy
+    index, show, create, update, destroy, search
 }
