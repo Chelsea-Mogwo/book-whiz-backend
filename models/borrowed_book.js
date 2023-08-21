@@ -50,7 +50,7 @@ class Borrowed_Book {
 
     async deleteById() {
         try {
-            await db.query("DELETE FROM borrwed_books WHERE book_id = $1", [this.id]);
+            await db.query("DELETE FROM borrowed_books WHERE book_id = $1", [this.book_id]);
             return { success: true, message: 'borrowed book deleted successfully.'} 
         } catch (error) {
             throw new Error('This id does not match an entry')
