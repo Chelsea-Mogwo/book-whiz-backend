@@ -38,7 +38,7 @@ async function update (req, res) {
         const bookToUpdate = await Book.getOneById(id)
         
         if (!bookToUpdate) {
-            return res.status(404).send({ message: 'Diary not found' });
+            return res.status(404).send({ message: 'Book not found' });
         }
 
         const result = await bookToUpdate.update(data);
@@ -54,7 +54,7 @@ async function destroy (req, res) {
         const id = parseInt(req.params.id);
         const bookToDelete = await Book.getOneById(id)
         await bookToDelete.deleteById(id)
-        res.status(204).send({ message: 'book deleted!' })
+        res.status(204).send({ message: 'Book deleted!' })
     } catch (error) {
       res.status(404).send({ error: error.message });
   }
