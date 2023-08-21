@@ -24,7 +24,7 @@ class Borrowed_Book {
         if (response.rows.length != 1) {
             throw new Error("Unable to locate borrowed book.")
         }
-        return new Book(response.rows[0]);
+        return new Borrowed_Book(response.rows[0]);
     }
 
     static async create(data) {
@@ -34,7 +34,7 @@ class Borrowed_Book {
     
         const response = await db.query('INSERT INTO borrowed_books (book_id, user_id, checked_out, due_date, overdue) VALUES ($1, $2, $3, $4, $5) RETURNING *;', [book_id, user_id, checked_out, due_date, overdue]);
     
-        return new Book(response.rows[0]);
+        return new Borrowed_Book(response.rows[0]);
     }
 
     async update(data) {
@@ -45,7 +45,7 @@ class Borrowed_Book {
             throw new Error("Unable to update book.")
         }
 
-        return new Book(response.rows[0]);
+        return new Borrowed_Book(response.rows[0]);
     }
 
     async deleteById() {
