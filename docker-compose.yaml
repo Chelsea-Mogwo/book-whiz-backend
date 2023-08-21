@@ -1,19 +1,25 @@
 version: '3'
 services:
+
   database:
     image: postgres
     container_name: library_db
     environment:
       POSTGRES_PASSWORD: jkljkl
-    ports:
-      - "5432:5432"
+    # ports:
+    #   - "5432:5432"
+    networks:
+      - backend_network
     volumes:
       - ./database/setup.sql:/docker-entrypoint-initdb.d/entries.sql
+
   api:
     image: node:18
     container_name: library_api
     ports:
       - 3000:3000
+    networks:
+      - backend_network
     volumes:
       - type: bind
         source: ../
