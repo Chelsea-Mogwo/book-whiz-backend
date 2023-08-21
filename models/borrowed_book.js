@@ -13,7 +13,7 @@ class Borrowed_Book {
     static async getAll() {
         const response = await db.query("SELECT * FROM borrowed_books;")
         if (response.rows.length === 0) {
-            throw new Error("No books available.")
+            throw new Error("No books are borrowed.")
         }
         return response.rows.map(g => new Book(g))
     }
