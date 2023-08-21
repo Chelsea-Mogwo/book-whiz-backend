@@ -1,4 +1,7 @@
 DROP TABLE IF EXISTS books;
+DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS tokens;
+
 
 CREATE TABLE books (
 	book_id INT GENERATED ALWAYS AS IDENTITY,
@@ -7,11 +10,29 @@ CREATE TABLE books (
 	genre VARCHAR(500),
 	section VARCHAR(255),
 	checked_out BOOLEAN DEFAULT FALSE,
+	user_id INT NOT NULL,
 	due_date TIMESTAMP,
 	overdue BOOLEAN DEFAULT FALSE,
-	user_details VARCHAR(30),
-	PRIMARY KEY (book_id)
+	PRIMARY KEY (book_id),
+	FOREIGN KEY (user_id) REFERENCES users("user_id")
 );
+
+CREATE TABLE users (
+    user_id INT GENERATED ALWAYS AS IDENTITY,
+    username VARCHAR(30) UNIQUE NOT NULL,
+    password CHAR(60) NOT NULL,
+    PRIMARY KEY (user_id)
+);
+
+CREATE TABLE tokens (
+    token_id INT GENERATED ALWAYS AS IDENTITY,
+    user_id INT NOT NULL,
+    token CHAR(36) UNIQUE NOT NULL,
+    PRIMARY KEY (token_id),
+    FOREIGN KEY (user_id) REFERENCES users("user_id")
+);
+
+
 
 INSERT INTO books 
 	(book_name, book_description, genre)

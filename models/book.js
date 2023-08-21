@@ -2,16 +2,16 @@ const db = require('../database/connect')
 
 class Book {
 
-    constructor ({ book_id, book_name, book_description, genre, section, checked_out, due_date, overdue, user_details}) {
+    constructor ({ book_id, book_name, book_description, genre, section, checked_out, user_id, due_date, overdue}) {
         this.id = book_id;
         this.name = book_name;
         this.description = book_description;
         this.genre = genre;
         this.section = section;
         this.checked_out = checked_out;
+        this.user_id = user_id;
         this.due_date = due_date;
         this.overdue = overdue;
-        this.user_details = user_details;
     }
 
     static async getAll() {
