@@ -6,9 +6,7 @@ COPY package*.json ./
 
 RUN npm install
 
-RUN npm setup-db
-
-RUN npm run dev
+RUN npm run setup-db
 
 VOLUME /book-wiz-backend
 
