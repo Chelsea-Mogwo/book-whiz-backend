@@ -10,7 +10,9 @@ bookRouter.get('/:id', bookController.show);
 bookRouter.post('/', bookController.create);
 bookRouter.patch('/:id', bookController.update)
 bookRouter.delete('/:id', bookController.destroy);
+bookRouter.get('/genre/:keyword', bookController.showGenre);
 bookRouter.get('/search/:keyword', bookController.search);
+
 
 
 module.exports = bookRouter;
