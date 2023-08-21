@@ -24,7 +24,11 @@ services:
       - type: bind
         source: ../
         target: /code
+<<<<<<< HEAD
     working_dir: /code/book-wiz-backend
+=======
+    working_dir: /code/server
+>>>>>>> c488631ef45d154ff51d3035caa5c2b6385d2dee
     depends_on:
       - database
     environment:
