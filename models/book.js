@@ -57,8 +57,7 @@ class Book {
     }
 
     static async getByTitleOrAuthor(keyword) {
-        console.log('Hi from models getbytitleorauthor')
-        console.log('Keyword:', keyword)
+
         const response = await db.query("SELECT * FROM books WHERE book_name ILIKE $1 OR book_author ILIKE $1;", 
         [`%${keyword}%`]);
     
