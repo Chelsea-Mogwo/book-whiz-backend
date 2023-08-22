@@ -2,7 +2,6 @@ const { Router } = require('express');
 
 const authenticator = require('../middleware/admin_authenticator.js')
 
-
 const adminRouter = Router();
 const adminController = require('../controllers/book.js');
 
