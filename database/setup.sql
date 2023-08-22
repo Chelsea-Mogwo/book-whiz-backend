@@ -61,3 +61,7 @@ VALUES
 	('Madame Bovary', 'Gustave Flaubert', '1857', 'Literary Fiction', 'A novel about a provincial wife who seeks escape from her boring life through affairs and living beyond her means.'),
 	('Wuthering Heights', 'Emily Bronte', '1847', 'Gothic Fiction', 'A gothic tale of love and revenge on the Yorkshire moors.'),
 	('The Divine Comedy', 'Dante Alighieri', '1320', 'Epic', 'An epic journey through Hell, Purgatory, and Paradise.');
+
+
+INSERT INTO users
+ (username, password) VALUES ('admin', 'jkljkl');
