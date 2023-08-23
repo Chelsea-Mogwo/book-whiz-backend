@@ -1,4 +1,4 @@
-const Book = require("../models/book.js")
+const Book = require("../models/book")
 
 
 async function index (req, res) {
