@@ -1,4 +1,4 @@
-const Borrowed_Book = require('../../../models/Borrowed_Book')
+const Borrowed_Book = require('../../../models/borrowed_book')
 
 const db = require('../../../database/connect')
 

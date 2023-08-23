@@ -1,12 +1,12 @@
-const bookController = require('../../../controllers/book');
-const Book = require('../../../models/book');
+const borrowed_BookController = require('../../../controllers/borrowed_book');
+const Borrowed_Book = require('../../../models/borrowed_book');
 
 const mockSend = jest.fn();
 const mockJson = jest.fn();
 const mockStatus = jest.fn(code => ({ send: mockSend, json: mockJson, end: jest.fn() }));
 const mockRes = { status: mockStatus };
 
-describe('book controller', () => {
+describe('borrowed_book controller', () => {
   beforeEach(() => {
     jest.clearAllMocks();
   });
@@ -15,30 +15,30 @@ describe('book controller', () => {
     it('returns a 200 status code', async () => {
       const testBooks = ['book1', 'book2'];
 
-      jest.spyOn(Book, 'getAll').mockResolvedValue(testBooks);
+      jest.spyOn(Borrowed_Book, 'getAll').mockResolvedValue(testBooks);
 
-      await bookController.index(null, mockRes);
+      await borrowed_BookController.index(null, mockRes);
 
       expect(mockStatus).toHaveBeenCalledWith(200);
       expect(mockJson).toHaveBeenCalledWith(testBooks);
     });
 
-    it('calls Book.getAll', async () => {
+    it('calls Borrowed_Book.getAll', async () => {
         const testBooks = ['book1', 'book2'];
   
-        jest.spyOn(Book, 'getAll')
+        jest.spyOn(Borrowed_Book, 'getAll')
           .mockResolvedValue(testBooks)
   
-        await bookController.index(null, mockRes)
-        expect(Book.getAll).toHaveBeenCalledTimes(1)
+        await borrowed_BookController.index(null, mockRes)
+        expect(Borrowed_Book.getAll).toHaveBeenCalledTimes(1)
     })
     
     it('rejects', async () => {
-      jest.spyOn(bookController, 'index')
+      jest.spyOn(borrowed_BookController, 'index')
         .mockRejectedValue(new Error('Something happened to your db'))
 
       try {
-        await bookController.index('', mockRes)
+        await borrowed_BookController.index('', mockRes)
       } catch (error) {
         expect(error).toBeTruthy()
         expect(error.message).toBe('Something happened to your db')
