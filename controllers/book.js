@@ -80,8 +80,18 @@ async function search (req, res) {
     }
 }
 
+async function randomBook (req, res) {
+    try {
+        const randomBook = await Book.getRandom()
+        console.log('hello');
+        res.status(200).json(randomBook);
+    } catch (error) {
+        res.status(404).json({ error: error.message });
+    }
+}
+
 
 
 module.exports = {
-    index, show, create, update, destroy, showGenre, search
+    index, show, create, update, destroy, showGenre, search, randomBook
 }
