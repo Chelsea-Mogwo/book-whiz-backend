@@ -7,6 +7,7 @@ const bookController = require('../controllers/book.js');
 
 // Guest routes
 bookRouter.get('/', bookController.index);
+bookRouter.get('/random', bookController.randomBook);
 bookRouter.get('/:id', bookController.show);
 bookRouter.get('/genre/:keyword', bookController.showGenre);
 bookRouter.get('/search/:keyword', bookController.search);
