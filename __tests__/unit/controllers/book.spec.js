@@ -12,16 +12,15 @@ describe('books controller', () => {
   });
 
   describe('index', () => {
-    it('returns books with a 200 status code', async () => {
+    it('returns a 200 status code', async () => {
       const testBooks = ['book1', 'book2'];
 
-      // Mock the Book.getAll static method
       jest.spyOn(Book, 'getAll').mockResolvedValue(testBooks);
 
       await booksController.index(null, mockRes);
 
       expect(mockStatus).toHaveBeenCalledWith(200);
-      expect(mockSend).toHaveBeenCalledWith({ "data": testBooks });
+      expect(mockJson).toHaveBeenCalledWith(testBooks);
     });
   });
 });
