@@ -7,7 +7,9 @@
     "start": "node index.js",
     "dev": "nodemon -L index.js",
     "setup-db": "node ./database/setup.js",
-    "test": "jest --watchAll"
+    "test": "jest --watchAll",
+    "models-test": "jest --watchAll ./models",
+    "controllers-test": "jest --watchAll ./controllers"
   },
   "keywords": [],
   "author": "",
