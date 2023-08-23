@@ -14,13 +14,13 @@ class Token {
         let token;
         
         if (user_id === 1) {
-            token = "predefined_admin_token"; 
+            return await Token.getOneByToken("predefined_admin_token"); 
         } else {
             token = uuidv4();
         }
-
-        const response = await db.query("INSERT INTO tokens (user_id, token) VALUES ($1, $2) RETURNING token_id;",
-            [user_id, token]);
+    
+        const response = await db.query("INSERT INTO tokens (user_id, token) VALUES ($1, $2) RETURNING token_id;", 
+                                        [user_id, token]);
         
         const newId = response.rows[0].token_id;
         const newToken = await Token.getOneById(newId);
