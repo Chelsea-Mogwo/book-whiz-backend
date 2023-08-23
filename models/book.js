@@ -88,7 +88,16 @@ class Book {
         return results;
     }
     
-
+    static async getRandom() {
+        console.log("getRandom");
+        const response = await db.query("SELECT * FROM books ORDER BY RANDOM() LIMIT 1;");
+        console.log(response);
+        if (response.rows.length === 0) {
+            throw new Error("No books available.");
+        }
+    
+        return new Book(response.rows[0]);
+    }
 }
 
 
