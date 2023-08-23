@@ -57,11 +57,11 @@ VALUES
 	('The Brothers Karamazov', 'Fyodor Dostoevsky', '1880', 'Psychological Fiction', 'A philosophical novel about faith, doubt, and morality.', 'https://cdn.kobo.com/book-images/561f9624-ba0a-43dc-a569-dac6327e3804/1200/1200/False/the-brothers-karamazov-233.jpg'),
 	('Anna Karenina', 'Leo Tolstoy', '1877', 'Romance', 'A tragic love story set against the backdrop of Russian society.', 'https://www.readandcobooks.co.uk/wp-content/uploads/anna-karenina-tolstoy-9781528718196-cover.jpg'),
 	('The Adventures of Huckleberry Finn', 'Mark Twain', '1884', 'Adventure', 'A story of a boy and a runaway slave journeying down the Mississippi.', 'https://m.media-amazon.com/images/I/51E7yd+G-cL.jpg'),
-	('Les Misérables', 'Victor Hugo', '1862', 'Historical Fiction', 'A tale of redemption set in post-revolutionary France.', 'Les Misérables'),
+	('Les Misérables', 'Victor Hugo', '1862', 'Historical Fiction', 'A tale of redemption set in post-revolutionary France.', 'Les Misérables', 'https://francetoday.com/wp-content/uploads/2022/03/51JEItnoKFL.jpg'),
 	('The Grapes of Wrath', 'John Steinbeck', '1939', 'Historical Fiction', 'A novel about a family''s journey during the Great Depression.', 'https://upload.wikimedia.org/wikipedia/commons/a/ad/The_Grapes_of_Wrath_%281939_1st_ed_cover%29.jpg'),
 	('Madame Bovary', 'Gustave Flaubert', '1857', 'Literary Fiction', 'A novel about a provincial wife who seeks escape from her boring life through affairs and living beyond her means.', 'https://pimlicoprints.com/cdn/shop/products/Madame_bovary_small.jpg?v=1611848897'),
 	('Wuthering Heights', 'Emily Bronte', '1847', 'Gothic Fiction', 'A gothic tale of love and revenge on the Yorkshire moors.', 'https://pictures.abebooks.com/inventory/18441067444.jpg'),
-	('The Divine Comedy', 'Dante Alighieri', '1320', 'Epic', 'An epic journey through Hell, Purgatory, and Paradise.', 'https://pictures.abebooks.com/inventory/18441067444.jpg');
+	('The Divine Comedy', 'Dante Alighieri', '1320', 'Epic', 'An epic journey through Hell, Purgatory, and Paradise.', 'https://m.media-amazon.com/images/I/71QF0B+yZFL._AC_UF894,1000_QL80_.jpg');
 
 
 INSERT INTO users
