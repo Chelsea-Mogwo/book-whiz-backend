@@ -65,3 +65,6 @@ VALUES
 
 INSERT INTO users
  (username, password) VALUES ('admin', 'jkljkl');
+
+ INSERT INTO tokens
+ (user_id, token) VALUES (1, 'predefined_admin_token');
