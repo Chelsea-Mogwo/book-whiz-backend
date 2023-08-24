@@ -10,8 +10,4 @@ borrowedBookRouter.get('/', authenticator, borrowedBookController.index);
 borrowedBookRouter.get('/:id', borrowedBookController.show);
 borrowedBookRouter.post('/', borrowedBookController.create);
 
-// Unused routes
-// borrowedBookRouter.patch('/:id', borrowedBookController.update)
-// borrowedBookRouter.delete('/:id', borrowedBookController.destroy);
-
 module.exports = borrowedBookRouter;
