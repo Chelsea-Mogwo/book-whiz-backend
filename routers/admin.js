@@ -8,7 +8,7 @@ const adminController = require('../controllers/borrowed_book.js');
 // Admin routes
 adminRouter.get('/', authenticator, adminController.index);
 adminRouter.get('/borrow', adminController.show);
-adminRouter.get('/borrow/:id', adminController.index);
+adminRouter.delete('/borrow/:id', adminController.destroy);
 
 adminRouter.get('/:id', adminController.show);
 adminRouter.post('/', adminController.create);
