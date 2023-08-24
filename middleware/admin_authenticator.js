@@ -1,9 +1,10 @@
 const Token = require("../models/token");
 
 async function admin_authenticator(req, res, next) {
+
     try {
         const userToken = req.headers["authorization"];
-        console.log('userToken:', userToken)
+
         if (!userToken) {
             throw new Error("Authorization header missing.");
         }
