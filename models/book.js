@@ -2,18 +2,19 @@ const db = require('../database/connect')
 
 class Book {
 
-    constructor ({ book_id, book_name, book_year, book_author, book_genre, book_description}) {
+    constructor ({ book_id, book_name, book_year, book_author, book_genre, book_description, book_image}) {
         this.id = book_id;
         this.name = book_name;
         this.year = book_year;
         this.author = book_author;
         this.genre = book_genre;
         this.description = book_description;
+        this.image = book_image;
     }
 
 
     static async getAll() {
-        const response = await db.query("SELECT * FROM books;")
+        const response = await db.query("SELECT books.* FROM books LEFT JOIN borrowed_books ON books.book_id = borrowed_books.book_id WHERE borrowed_books.book_id IS NULL;")
         if (response.rows.length === 0) {
             throw new Error("No books available.")
         }
