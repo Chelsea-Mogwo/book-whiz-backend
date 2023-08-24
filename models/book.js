@@ -2,18 +2,19 @@ const db = require('../database/connect')
 
 class Book {
 
-    constructor ({ book_id, book_name, book_year, book_author, book_genre, book_description}) {
+    constructor ({ book_id, book_name, book_year, book_author, book_genre, book_description, book_image}) {
         this.id = book_id;
         this.name = book_name;
         this.year = book_year;
         this.author = book_author;
         this.genre = book_genre;
         this.description = book_description;
+        this.image = book_image;
     }
 
 
     static async getAll() {
-        const response = await db.query("SELECT * FROM books;")
+        const response = await db.query("SELECT books.* FROM books LEFT JOIN borrowed_books ON books.book_id = borrowed_books.book_id WHERE borrowed_books.book_id IS NULL;")
         if (response.rows.length === 0) {
             throw new Error("No books available.")
         }
@@ -22,7 +23,7 @@ class Book {
 
 
     static async getOneById(id) {
-        const response = await db.query("SELECT * FROM books WHERE book_id = $1", [id]);
+        const response = await db.query("SELECT books.* FROM books LEFT JOIN borrowed_books ON books.book_id = borrowed_books.book_id WHERE books.book_id = $1 AND borrowed_books.book_id IS NULL", [id]);
         if (response.rows.length != 1) {
             throw new Error("Unable to locate book.")
         }
@@ -63,8 +64,7 @@ class Book {
 
     static async getByGenre(keyword) {
 
-        const response = await db.query("SELECT * FROM books WHERE book_genre ILIKE $1;", 
-        [`%${keyword}%`]);
+        const response = await db.query("SELECT books.* FROM books LEFT JOIN borrowed_books ON books.book_id = borrowed_books.book_id WHERE books.book_genre ILIKE $1 AND borrowed_books.book_id IS NULL;", [`%${keyword}%`]);
     
         if (response.rows.length === 0) {
             throw new Error("No books found with that genre.")
@@ -76,26 +76,31 @@ class Book {
 
 
     static async getByTitleOrAuthor(keyword) {
-
-        const response = await db.query("SELECT * FROM books WHERE book_name ILIKE $1 OR book_author ILIKE $1;", 
-        [`%${keyword}%`]);
-    
+        const response = await db.query(`
+            SELECT books.* FROM books LEFT JOIN borrowed_books ON books.book_id = borrowed_books.book_id WHERE (books.book_name ILIKE $1 OR books.book_author ILIKE $1) AND borrowed_books.book_id IS NULL`, [`%${keyword}%`]);
+        
         if (response.rows.length === 0) {
-            throw new Error("No books found with that title or author.")
+            throw new Error("No books found with that title or author, or all matching books are borrowed.")
         }
-    
+        
         const results = response.rows.map(row => new Book(row));
         return results;
     }
     
     static async getRandom() {
         console.log("getRandom");
-        const response = await db.query("SELECT * FROM books ORDER BY RANDOM() LIMIT 1;");
-        console.log(response);
-        if (response.rows.length === 0) {
-            throw new Error("No books available.");
-        }
     
+        const response = await db.query(`
+            SELECT books.* FROM books LEFT JOIN borrowed_books ON books.book_id = borrowed_books.book_id 
+            WHERE borrowed_books.book_id IS NULL ORDER BY RANDOM() LIMIT 1;
+        `);
+        
+        console.log(response);
+        
+        if (response.rows.length === 0) {
+            throw new Error("No books available or all books are borrowed.");
+        }
+        
         return new Book(response.rows[0]);
     }
 }

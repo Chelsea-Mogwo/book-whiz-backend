@@ -9,7 +9,8 @@
     "setup-db": "node ./database/setup.js",
     "test": "jest --watchAll",
     "models-test": "jest --watchAll ./models",
-    "controllers-test": "jest --watchAll ./controllers"
+    "controllers-test": "jest --watchAll ./controllers",
+    "coverage": "jest --coverage"
   },
   "keywords": [],
   "author": "",
