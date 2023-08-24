@@ -14,7 +14,7 @@ class Book {
 
 
     static async getAll() {
-        const response = await db.query("SELECT * FROM books;")
+        const response = await db.query("SELECT books.* FROM books LEFT JOIN borrowed_books ON books.book_id = borrowed_books.book_id WHERE borrowed_books.book_id IS NULL;")
         if (response.rows.length === 0) {
             throw new Error("No books available.")
         }
